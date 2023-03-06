@@ -1,0 +1,23 @@
+# ninja log v5
+13	492	6992906598925068	CMakeFiles/assignment_2.dir/registers.cpp.obj	713ee9eee3430618
+3	505	6992906599059024	CMakeFiles/assignment_2.dir/main.cpp.obj	2bca05b992285cf5
+509	670	6992906600663596	assignment_2.exe	4504582b9c8fa009
+7	509	6992906599098987	CMakeFiles/assignment_2.dir/instruction.cpp.obj	f4379b835fa368b8
+4	541	6992937417221810	CMakeFiles/assignment_2.dir/instruction.cpp.obj	f4379b835fa368b8
+12	544	6992937417242573	CMakeFiles/assignment_2.dir/simulator.cpp.obj	a5161417e069c618
+15	591	6992937417724370	CMakeFiles/assignment_2.dir/program.cpp.obj	60d84a73763eb9c1
+3	520	6992941723067811	CMakeFiles/assignment_2.dir/instruction.cpp.obj	f4379b835fa368b8
+8	581	6992941723697053	CMakeFiles/assignment_2.dir/main.cpp.obj	2bca05b992285cf5
+11	596	6992941723859165	CMakeFiles/assignment_2.dir/simulator.cpp.obj	a5161417e069c618
+15	644	6992941724314906	CMakeFiles/assignment_2.dir/program.cpp.obj	60d84a73763eb9c1
+645	849	6992941726307097	assignment_2.exe	4bacb73fdf498bb3
+6	532	6992944364943072	CMakeFiles/assignment_2.dir/main.cpp.obj	2bca05b992285cf5
+533	771	6992944367254266	assignment_2.exe	4bacb73fdf498bb3
+3	442	6992944635230529	CMakeFiles/assignment_2.dir/main.cpp.obj	2bca05b992285cf5
+443	606	6992944636829237	assignment_2.exe	4bacb73fdf498bb3
+3	495	6992948584411192	CMakeFiles/assignment_2.dir/main.cpp.obj	2bca05b992285cf5
+495	679	6992948586197834	assignment_2.exe	4bacb73fdf498bb3
+3	462	6992949415474469	CMakeFiles/assignment_2.dir/main.cpp.obj	2bca05b992285cf5
+462	621	6992949416985280	assignment_2.exe	4bacb73fdf498bb3
+2	378	6992953070387892	CMakeFiles/assignment_2.dir/main.cpp.obj	2bca05b992285cf5
+378	526	6992953071789360	assignment_2.exe	4bacb73fdf498bb3

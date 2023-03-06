@@ -1,0 +1,3 @@
+C:/Users/Thijs/OneDrive/Documenten/TU/Computer Architecture and Organisation/lab/assignment 1/cmake-build-debug/CMakeFiles/assignment_1.dir
+C:/Users/Thijs/OneDrive/Documenten/TU/Computer Architecture and Organisation/lab/assignment 1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Thijs/OneDrive/Documenten/TU/Computer Architecture and Organisation/lab/assignment 1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
