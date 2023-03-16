@@ -1,8 +1,6 @@
-addi $t0, $t0 64
-beqz $zero jump
-
-addi $t1, $t1 32
-j end
-jump:
-addi $t1, $t1 16
-end:
+addi $t2, $zero, 4
+jal top
+addi $t1, $t1, 16
+top:
+jr $ra
+addi $t0, $zero, 8
