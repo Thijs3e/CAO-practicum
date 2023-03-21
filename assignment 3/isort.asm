@@ -105,7 +105,7 @@ isortfor1:
 	
 	# assume all t vars overwritten
 	sll $t1, $s5, 2		# i * 4		
-	add $t2, $s3, $t1	# addr of a[i]
+	sub $t2, $s3, $t1	# addr of a[i]
 	
 	add $a0, $0, $sp	# set b arg to addr of b
 	add $a1, $0, $s5	# set i arg to value of i
@@ -148,10 +148,11 @@ binarySearch:
 while:
 	addi $t2, $t1, -1	# t2 = high - 1
 	
-	bge $t2, $0, endWhile	# while low < high -1
+	bge $t2, $t0, endWhile	# while low < high -1
 	
 	add $t3, $t0, $t1	# midi = low+high
 	srl $t3, $t3, 1		# mid = midi/2 
+	sll $t3, $t3, 2
 	
 	sub $t4, $a0, $t3	# t4 = addr of a[mid]
 	lw $t5, 0($t4)		# t5 = value of a[mid]
