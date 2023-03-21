@@ -69,15 +69,22 @@ exit_print:	add	$sp, $sp, $s0		# elimination of the stack frame
 # selectionSort #
 #################
 isort:
+	#s0-s2 are used, store on stack
+	addi $sp, $sp, -12 	#create space for 3 variables
+	sw $s3, 8($sp)
+	sw $s1, 4($sp)
+	sw $s7, 0($sp)
+	#................
+	
         addi $s3, $a1, -1   # s3 = length-1
-        move $s1, $zero     # s1 is used as iterator, so can be reused without problems
+	move $s1, $zero     # s1 is used as iterator, so can be reused without problems
         move $s7, $ra   # store return addr of main in s7
 for_sort:
         bge $s1, $s3, end_for_sort
         # addr of a already in a0
         move $a1, $s1
         move $a2, $s3
-        jal indexMin
+        jal indexMin2
         # a0 and a1 are already correctly set.
         move $a2, $v0
         jal swap
@@ -86,31 +93,37 @@ for_sort:
 end_for_sort:
         # restore ra
         move $ra, $s7
+        # restore s0-s2
+	lw $s3, 8($sp)
+	lw $s1, 4($sp)
+	lw $s7, 0($sp)
+	addi $sp, $sp, 12 	#remove the space for 8 variables
+        # .....
         jr $ra
 
 ################
 # indexMinimum #
 ################
-indexMin:
-        move $v0, $a1
-        sll $t0, $a1, 2     # t0 = 4*first
-        add $t0, $t0, $a0   # t0 = address of v[first]
-        lw $t1, 0($t0)      # t1 = min = v[first]
-        addi $t2, $a1, 1    # t2 = i = first+1
-for_index:
-        bgt $t2, $a2, end_for_index
-        sll $t3, $t2, 2      # t3=i*4
-        add $t3, $t3, $a0   # t3 = addr of v[i]
-        lw $t3, 0($t3)      # t3 = v[i]
-        bge $t3, $t2, increment_index
-        move $v0, $t2       # mini = i
-        move $t1, $t3       # min = v[i]
-increment_index:
-        addi $t2, $t2, 1
-        j for_index
-end_for_index:
-        jr $ra
-
+       
+indexMin2:
+	move $v0, $a1	# mini = first
+	sll $t0, $a1, 2	#t0 = first*4
+	add $t0, $a0, $t0	# t0 = address of v[first]
+	lw $t1, 0($t0)		#t1= min = v[first]
+	addi $t2, $a1, 1	# t2 = i = first +1
+for_min:
+	blt $a2, $t2, for_min_end
+	sll $t3, $t2, 2		# t3 = 4*1
+	add $t3, $a0, $t3	#t3= addr of v[i]
+	lw $t4, 0($t3)		#t4 = v[i]
+	blt $t4, $t1, if
+back:	addi $t2, $t2, 1
+	j for_min
+for_min_end:
+	jr $ra
+if:	move $v0, $t2
+	move $t1, $t4
+	j back
 ########
 # swap #
 ########
