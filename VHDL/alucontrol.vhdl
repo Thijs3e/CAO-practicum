@@ -39,7 +39,8 @@ begin
                     when "100011" =>    -- subu
                         aluinstr <= "00011";
                     -- Add here the cases for the new instruction i think (sra, sllv or slt)
-
+                    when "000011" =>
+                        aluinstr <= "11111"; -- sra
                     --
                     when others =>
                         aluinstr <= "00000";

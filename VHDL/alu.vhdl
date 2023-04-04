@@ -87,6 +87,11 @@ begin
                 else
                     branch <= '0';
                 end if;
+            -- sla
+            when "11111" =>
+                result <= std_logic_vector(shift_right(signed(data2), to_integer(unsigned(shamt))));
+                branch <= '0';
+            --
             when others =>
                 result <= "00000000000000000000000000000000";
                 branch <= '1';
