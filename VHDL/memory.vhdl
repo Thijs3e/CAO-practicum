@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity memory is
+entity memory_default is
 	port
 	(
 		clk			: in  std_logic;
@@ -15,9 +15,9 @@ entity memory is
 		instruction		: out std_logic_vector (31 downto 0);
 		readdata		: out std_logic_vector (31 downto 0)
 	);
-end memory;
+end memory_default;
 
-architecture behavior of memory is
+architecture behavior of memory_default is
 	type ramcell is array (0 to 255) of std_logic_vector (7 downto 0);
 	signal ram			: ramcell;
 	signal masked1, masked2		: std_logic_vector (7 downto 0);
