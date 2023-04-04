@@ -41,3 +41,16 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# from VHDL
+*.project
+*.xml
+*.prefs
+*.qdb
+*.qpg
+*.qtl
+_info
+_vmake
+*.wlf
+wlftjtdttk
+transcript
