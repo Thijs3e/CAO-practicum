@@ -91,6 +91,10 @@ begin
             when "11111" =>
                 result <= std_logic_vector(shift_right(signed(data2), to_integer(unsigned(shamt))));
                 branch <= '0';
+            -- jal
+            when "11011" =>
+                result <= data2;
+                branch <= '1';
             --
             when others =>
                 result <= "00000000000000000000000000000000";

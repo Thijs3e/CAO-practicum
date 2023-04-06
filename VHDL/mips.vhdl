@@ -24,49 +24,50 @@ architecture behavior of mips is
 
     component alucontrol
         port(
-            aluop       : in  std_logic_vector(2 downto 0);
+            aluop       : in  std_logic_vector(3 downto 0);
             instruction : in  std_logic_vector(5 downto 0);
             branch1     : in  std_logic;
             branch2     : in  std_logic_vector(1 downto 0);
             aluinstr    : out std_logic_vector(4 downto 0)
         );
-    end component;
+    end component alucontrol;
 
     component control
         port(
             instruction : in  std_logic_vector(5 downto 0);
             funct       : in  std_logic_vector(5 downto 0);
-            branch      : out std_logic_vector(1 downto 0);
+            branch      : out std_logic_vector(2 downto 0);
             regdst      : out std_logic;
             memread     : out std_logic;
             memtoreg    : out std_logic;
-            aluop       : out std_logic_vector(2 downto 0);
+            aluop       : out std_logic_vector(3 downto 0);
             memwrite    : out std_logic;
             alusrc      : out std_logic;
             regwrite    : out std_logic
         );
-    end component;
+    end component control;
 
     component extend
         port(
-            aluop       : in  std_logic_vector(2 downto 0);
+            aluop       : in  std_logic_vector(3 downto 0);
             instruction : in  std_logic_vector(15 downto 0);
             value       : out std_logic_vector(31 downto 0)
         );
-    end component;
+    end component extend;
 
     component jump
         port(
             branchalu     : in  std_logic;
-            branchcontrol : in  std_logic_vector(1 downto 0);
+            branchcontrol : in  std_logic_vector(2 downto 0);
             extend        : in  std_logic_vector(31 downto 0);
             jump          : in  std_logic_vector(25 downto 0);
             registers     : in  std_logic_vector(31 downto 0);
             current       : in  std_logic_vector(31 downto 0);
             branch        : out std_logic;
-            address       : out std_logic_vector(31 downto 0)
+            address       : out std_logic_vector(31 downto 0);
+            performJal    : out std_logic
         );
-    end component;
+    end component jump;
 
     component memory
         port(
@@ -95,21 +96,22 @@ architecture behavior of mips is
 
     component registers
         port(
-            clk       : in  std_logic;
-            rst       : in  std_logic;
-            regwrite  : in  std_logic;
-            readreg1  : in  std_logic_vector(4 downto 0);
-            readreg2  : in  std_logic_vector(4 downto 0);
-            writereg  : in  std_logic_vector(4 downto 0);
-            writedata : in  std_logic_vector(31 downto 0);
-            readdata1 : out std_logic_vector(31 downto 0);
-            readdata2 : out std_logic_vector(31 downto 0)
+            clk        : in  std_logic;
+            rst        : in  std_logic;
+            regwrite   : in  std_logic;
+            readreg1   : in  std_logic_vector(4 downto 0);
+            readreg2   : in  std_logic_vector(4 downto 0);
+            writereg   : in  std_logic_vector(4 downto 0);
+            writedata  : in  std_logic_vector(31 downto 0);
+            performJal : in  std_logic;
+            readdata1  : out std_logic_vector(31 downto 0);
+            readdata2  : out std_logic_vector(31 downto 0)
         );
-    end component;
+    end component registers;
 
-    signal branch, branchalu, regwrite, regdst, memread, memtoreg, memwrite, alusrc                                                  : std_logic;
-    signal branchcontrol                                                                                                             : std_logic_vector(1 downto 0);
-    signal aluop                                                                                                                     : std_logic_vector(2 downto 0);
+    signal branch, branchalu, regwrite, regdst, memread, memtoreg, memwrite, alusrc, performJal                                      : std_logic;
+    signal branchcontrol                                                                                                             : std_logic_vector(2 downto 0);
+    signal aluop                                                                                                                     : std_logic_vector(3 downto 0);
     signal aluinstr                                                                                                                  : std_logic_vector(4 downto 0);
     signal writereg                                                                                                                  : std_logic_vector(4 downto 0);
     signal branchaddress, extended, instruction, readdata1, readdata2, memorydata, current_pc, add_pc, writedata, result, aludatasel : std_logic_vector(31 downto 0);
@@ -144,7 +146,8 @@ begin
                  registers     => readdata1,
                  current       => add_pc,
                  branch        => branch,
-                 address       => branchaddress
+                 address       => branchaddress,
+                 performJal    => performJal
                 );
 
     extendmap : extend
@@ -154,15 +157,16 @@ begin
                 );
 
     registersmap : registers
-        port map(clk       => clk,
-                 rst       => rst,
-                 regwrite  => regwrite,
-                 readreg1  => instruction(25 downto 21),
-                 readreg2  => instruction(20 downto 16),
-                 writereg  => writereg,
-                 writedata => writedata,
-                 readdata1 => readdata1,
-                 readdata2 => readdata2
+        port map(clk        => clk,
+                 rst        => rst,
+                 regwrite   => regwrite,
+                 readreg1   => instruction(25 downto 21),
+                 readreg2   => instruction(20 downto 16),
+                 writereg   => writereg,
+                 writedata  => writedata,
+                 performJal => performJal,
+                 readdata1  => readdata1,
+                 readdata2  => readdata2
                 );
 
     memorymap : memory
