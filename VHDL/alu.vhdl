@@ -8,7 +8,8 @@ entity alu is
         data2    : in  std_logic_vector(31 downto 0);
         shamt    : in  std_logic_vector(4 downto 0);
         aluinstr : in  std_logic_vector(4 downto 0);
-        result   : out std_logic_vector(31 downto 0);
+        pcadd	 : in  std_logic_vector(31 downto 0);
+	result   : out std_logic_vector(31 downto 0);
         branch   : out std_logic
     );
 end alu;
@@ -93,7 +94,7 @@ begin
                 branch <= '0';
             -- jal
             when "11011" =>
-                result <= data2;
+                result <= pcadd;
                 branch <= '1';
             --
             when others =>

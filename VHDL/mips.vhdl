@@ -17,6 +17,7 @@ architecture behavior of mips is
             data2    : in  std_logic_vector(31 downto 0);
             shamt    : in  std_logic_vector(4 downto 0);
             aluinstr : in  std_logic_vector(4 downto 0);
+	    pcadd    : in  std_logic_vector(31 downto 0);
             result   : out std_logic_vector(31 downto 0);
             branch   : out std_logic
         );
@@ -207,6 +208,7 @@ begin
                  data2    => aludatasel,
                  shamt    => instruction(10 downto 6),
                  aluinstr => aluinstr,
+		 pcadd	  => add_pc,
                  result   => result,
                  branch   => branchalu
                 );
